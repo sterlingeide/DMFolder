@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Campaigns</title>
+</head>
+<body>
+    <% for( let index = 0; index < campaigns.length; index++ ) { %>
+        <% let a = campaigns[index] %> 
+        <% a = a.toJSON() %>
+        <p> <%= a.name %></p>
+        <a href="/campaigns/<%= a.id %>">View Campaign </a><br>
+        <a href="/campaigns/edit/<%= a.id %>"> Edit</a>
+        <form method="POST" action="/campaigns/<%= a.id %>/?_method=DELETE">
+            <input type="submit" value="Delete Campaign">
+        </form>
+        <hr>
+    <% } %>
+</body>
+</html>

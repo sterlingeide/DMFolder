@@ -6,12 +6,16 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
+const campaign = require('./models/campaign');
+const methodOverride = require('method-override');
+
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log(SECRET_SESSION);
 
 app.set('view engine', 'ejs');
 
+app.use(methodOverride('_method'));
 app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
@@ -46,10 +50,13 @@ app.get('/profile', isLoggedIn, (req, res) => {
 
 // controllers
 app.use('/auth', require('./controllers/auth'));
+app.use('/campaigns', require('./controllers/campaigns'));
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);
 });
+
+
 
 module.exports = server;
