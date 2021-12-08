@@ -2,13 +2,22 @@ const express = require('express');
 //const { regexp } = require('sequelize/dist/lib/operators');
 const router = express.Router();
 const { location } = require('../models');
+const { campaign } = require('../models');
 
-router.get('/', function(req, res) {
+router.get('/new/:id', function(req, res) {
+    let campaignId = Number(req.params.id);
+    res.render('locations/new', {campaignId: campaignId}); 
+});
+
+router.get('/:id', function(req, res) {
     //get all locations
-    location.findAll()
+    let campaignId = Number(req.params.id);
+    location.findAll({
+        where: {campaignId: campaignId}
+    })
     .then(function(locationList){
         console.log('FOUND ALL LocationS', locationList);
-        res.render('locations/index', { locations: locationList});
+        res.render('locations/index', { locations: locationList, campaignId: campaignId});
 
     })
     .catch(function(err){
@@ -17,27 +26,29 @@ router.get('/', function(req, res) {
     })
 })
 
-router.get('/new', function(req, res) {
-    res.render('locations/new'); 
-});
 
-
-router.post('/', function(req, res) {
+router.post('/:id/', function(req, res) {
     console.log('SUBMITTED FORM', req.body);
-    location.create({
-        name: req.body.name,
-        population: req.body.population,
-        faction: req.body.faction,
-        description: req.body.description
+    let campaignId = Number(req.params.id);
+    campaign.findOne({
+        where: {id: campaignId}
     })
-    .then(function(newLocation) {
-        console.log('NEW Location', newLocation.toJSON());
-        newLocation = newLocation.toJSON();
-        res.redirect(`/locations/${newLocation.id}`);
-    })
-    .catch(function(error) {
-        console.log('ERROR', error);
-        res.render('404', { message: 'Location was not added please try again...' });
+    .then(campaign => {
+        campaign.createLocation({
+            name: req.body.name,
+            population: req.body.population,
+            faction: req.body.faction,
+            description: req.body.description
+        })
+        .then(function(newLocation) {
+            console.log('NEW Location', newLocation.toJSON());
+            newLocation = newLocation.toJSON();
+            res.redirect(`/locations/s/${newLocation.id}`);
+        })
+        .catch(function(error) {
+            console.log('ERROR', error);
+            res.render('404', { message: 'Location was not added please try again...' });
+        });
     });
     // res.redirect()
 });
@@ -52,7 +63,7 @@ router.put('/:id', function(req, res) {
     }, {where: {id: Number(req.params.id)}})
     .then(function(response){
         console.log(response);
-        res.redirect(`/locations/${Number(req.params.id)}`);
+        res.redirect(`/locations/s/${Number(req.params.id)}`);
     })
     .catch(function(err){
         console.log('ERROR', err);
@@ -60,12 +71,24 @@ router.put('/:id', function(req, res) {
     })
 })
 
-router.delete('/:id', function(req,res){ 
+router.delete('/:id', async function(req,res){ 
     console.log('ID', req.params.id);
+    let locationId = Number(req.params.id);
+    let campaignId = 0;
+
+    try{ 
+        locationFound = await location.findByPk(locationId);
+        console.log("LOCATION FOUND", locationFound);
+        campaignId = await locationFound.toJSON().campaignId;
+        
+    }
+    catch(err) {
+        console.log('ERROR', err);
+    }   
     location.destroy({ where: { id: Number(req.params.id)}})
     .then(function(response) {
         console.log('Location DELETED', response);
-        res.redirect('/locations');
+        res.redirect('/locations/' + campaignId);
     })
     .catch(function(err) {
         console.log('ERROR', err);
@@ -94,7 +117,7 @@ router.get('/edit/:id', function(req, res) {
     
 })
 
-router.get('/:id', function(req, res) {
+router.get('/s/:id', function(req, res) {
     console.log(req.params.id);
     location.findByPk(Number(req.params.id))
     .then(function(location){

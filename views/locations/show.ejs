@@ -7,8 +7,8 @@
     <title>A Location</title>
 </head>
 <body>
-        <a href="/locations">View All Locations </a>
         <% let p = location %> 
+        <a href="/locations/<%= p.campaignId %>">View All Locations </a>
         <h1> <%= p.name %></h1>
         <p> The population of <%= p.name %> is <%= p.population %>. The factions there are <%= p.faction %>. Description: <%= p.description %></p>
         <a href="/locations/edit/<%= p.id %>">Edit</a>

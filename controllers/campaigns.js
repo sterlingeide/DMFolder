@@ -1,11 +1,17 @@
 const express = require('express');
+//const { users } = require('unsplash-js/dist/internals');
 //const { regexp } = require('sequelize/dist/lib/operators');
 const router = express.Router();
 const { campaign } = require('../models');
+const { User } = require('../models');
+const isLoggedIn = require('../middleware/isLoggedIn');
 
-router.get('/', function(req, res) {
+
+router.get('/', isLoggedIn, function(req, res) {
     //get all campaigns
-    campaign.findAll()
+    campaign.findAll({
+        where: {userId: req.user.id}
+    })
     .then(function(campaignList){
         console.log('FOUND ALL CAMPAIGNS', campaignList);
         res.render('campaigns/index', { campaigns: campaignList});
@@ -22,19 +28,24 @@ router.get('/new', function(req, res) {
 });
 
 
-router.post('/', function(req, res) {
+router.post('/', isLoggedIn, function(req, res) {
     console.log('SUBMITTED FORM', req.body);
-    campaign.create({
-        name: req.body.name,
+    User.findOne({
+        where: {id: req.user.id}
     })
-    .then(function(newCampaign) {
-        console.log('NEW CAMPAIGN', newCampaign.toJSON());
-        newCampaign = newCampaign.toJSON();
-        res.redirect(`/campaigns/${newCampaign.id}`);
-    })
-    .catch(function(error) {
-        console.log('ERROR', error);
-        res.render('404', { message: 'Campaign was not added please try again...' });
+    .then(user => {
+        user.createCampaign({
+            name: req.body.name,
+        })
+        .then(function(newCampaign) {
+            console.log('NEW CAMPAIGN', newCampaign.toJSON());
+            newCampaign = newCampaign.toJSON();
+            res.redirect(`/campaigns/${newCampaign.id}`);
+        })
+        .catch(function(error) {
+            console.log('ERROR', error);
+            res.render('404', { message: 'Campaign was not added please try again...' });
+        });
     });
     // res.redirect()
 });

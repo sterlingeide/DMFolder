@@ -11,12 +11,13 @@
         <% let a = locations[index] %> 
         <% a = a.toJSON() %>
         <p> <%= a.name %></p>
-        <a href="/locations/<%= a.id %>">View Location </a><br>
+        <a href="/locations/s/<%= a.id %>">View Location </a><br>
         <a href="/locations/edit/<%= a.id %>"> Edit</a>
         <form method="POST" action="/locations/<%= a.id %>/?_method=DELETE">
             <input type="submit" value="Delete Location">
         </form>
         <hr>
     <% } %>
+    <a href="/locations/new/<%= campaignId %>"> New Location</a>
 </body>
 </html>
