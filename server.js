@@ -51,6 +51,8 @@ app.get('/profile', isLoggedIn, (req, res) => {
 // controllers
 app.use('/auth', require('./controllers/auth'));
 app.use('/campaigns', require('./controllers/campaigns'));
+app.use('/characters', require('./controllers/characters'));
+
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {

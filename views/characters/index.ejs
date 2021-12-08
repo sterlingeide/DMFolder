@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Characters</title>
+</head>
+<body>
+    <% for( let index = 0; index < characters.length; index++ ) { %>
+        <% let a = characters[index] %> 
+        <% a = a.toJSON() %>
+        <p> <%= a.name %></p>
+        <a href="/characters/<%= a.id %>">View Character </a><br>
+        <a href="/characters/edit/<%= a.id %>"> Edit</a>
+        <form method="POST" action="/characters/<%= a.id %>/?_method=DELETE">
+            <input type="submit" value="Delete Character">
+        </form>
+        <hr>
+    <% } %>
+</body>
+</html>
