@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Location</title>
+</head>
+<body>
+        <a href="/locations">View All Locations </a>
+        <% let p = location %> 
+        <h1> <%= p.name %></h1>
+        <p> The population of <%= p.name %> is <%= p.population %>. The factions there are <%= p.faction %>. Description: <%= p.description %></p>
+        <a href="/locations/edit/<%= p.id %>">Edit</a>
+
+        <form method="POST" action="/locations/<%= p.id %>/?_method=DELETE">
+            <input type="submit" value="Delete Location">
+        </form>
+</body>
+</html>

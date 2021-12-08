@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lore</title>
+</head>
+<body>
+        <a href="/lores">View All Lore </a>
+        <% let p = lore %> 
+        
+        <a href="/lores/edit/<%= p.id %>">Edit</a>
+        <p> History: <%= p.history %></p> 
+        <p> Religion: <%= p.religion %></p>
+        <form method="POST" action="/lores/<%= p.id %>/?_method=DELETE">
+            <input type="submit" value="Delete Lore">
+        </form>
+</body>
+</html>

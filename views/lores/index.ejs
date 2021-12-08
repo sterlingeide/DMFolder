@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Lore</title>
+</head>
+<body>
+    <% for( let index = 0; index < lores.length; index++ ) { %>
+        <% let a = lores[index] %> 
+        <% a = a.toJSON() %>
+        <p> <%= a.history %></p>
+        <p> <%= a.religion %></p>
+        <a href="/lores/<%= a.id %>">View Lore </a><br>
+        <a href="/lores/edit/<%= a.id %>"> Edit</a>
+        <form method="POST" action="/lores/<%= a.id %>/?_method=DELETE">
+            <input type="submit" value="Delete Lore">
+        </form>
+        <hr>
+    <% } %>
+</body>
+</html>
