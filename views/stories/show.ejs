@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Story</title>
+</head>
+<body>
+        <a href="/stories">View All Stories </a>
+        <% let p = story %> 
+        <h1> <%= p.name %></h1>
+        <p> Takes place in <%= p.location %>. In the time frame of <%= p.timeFrame %>.</p> 
+        <p> Story Beats: <%= p.storyBeats %></p>
+        <a href="/stories/edit/<%= p.id %>">Edit</a>
+
+        <form method="POST" action="/stories/<%= p.id %>/?_method=DELETE">
+            <input type="submit" value="Delete Story">
+        </form>
+</body>
+</html>

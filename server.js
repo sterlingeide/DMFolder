@@ -54,9 +54,9 @@ app.use('/campaigns', require('./controllers/campaigns'));
 app.use('/characters', require('./controllers/characters'));
 app.use('/locations', require('./controllers/locations'));
 app.use('/lores', require('./controllers/lores'));
-// app.use('/majorFactions', require('./controllers/majorFactions'));
-// app.use('/stories', require('./controllers/stories'));
-// app.use('/villains', require('./controllers/villains'));
+app.use('/majorFactions', require('./controllers/majorFactions'));
+app.use('/stories', require('./controllers/stories'));
+app.use('/villains', require('./controllers/villains'));
 
 
 const PORT = process.env.PORT || 3000;
