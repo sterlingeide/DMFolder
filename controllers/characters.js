@@ -2,10 +2,14 @@ const express = require('express');
 //const { regexp } = require('sequelize/dist/lib/operators');
 const router = express.Router();
 const { character } = require('../models');
+const { User } = require('../models');
+const isLoggedIn = require('../middleware/isLoggedIn');
 
-router.get('/', function(req, res) {
+router.get('/', isLoggedIn, function(req, res) {
     //get all characters
-    character.findAll()
+    character.findAll({
+        where: {userId: req.user.id}
+    })
     .then(function(characterList){
         console.log('FOUND ALL CHARACTER', characterList);
         res.render('characters/index', { characters: characterList});
@@ -22,22 +26,27 @@ router.get('/new', function(req, res) {
 });
 
 
-router.post('/', function(req, res) {
+router.post('/', isLoggedIn, function(req, res) {
     console.log('SUBMITTED FORM', req.body);
-    character.create({
-        name: req.body.name,
-        class: req.body.class,
-        race: req.body.race,
-        backstory: req.body.backstory,
+    User.findOne({
+        where: {id: req.user.id}
     })
-    .then(function(newCharacter) {
-        console.log('NEW CHARACTER', newCharacter.toJSON());
-        newCharacter = newCharacter.toJSON();
-        res.redirect(`/characters/${newCharacter.id}`);
-    })
-    .catch(function(error) {
-        console.log('ERROR', error);
-        res.render('404', { message: 'Character was not added please try again...' });
+    .then(user => {
+        user.createCharacter({
+            name: req.body.name,
+            class: req.body.class,
+            race: req.body.race,
+            backstory: req.body.backstory,
+        })
+        .then(function(newCharacter) {
+            console.log('NEW CHARACTER', newCharacter.toJSON());
+            newCharacter = newCharacter.toJSON();
+            res.redirect(`/characters/${newCharacter.id}`);
+        })
+        .catch(function(error) {
+            console.log('ERROR', error);
+            res.render('404', { message: 'Character was not added please try again...' });
+        });
     });
     // res.redirect()
 });
