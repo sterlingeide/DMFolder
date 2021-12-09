@@ -7,8 +7,8 @@
     <title>A Major Faction</title>
 </head>
 <body>
-        <a href="/majorFactions">View All Major Factions </a>
         <% let p = majorFaction %> 
+        <a href="/majorFactions/<%= p.campaignId %>">View All Major Factions </a>
         <h1> <%= p.name %></h1>
         <p> The leader of <%= p.name %> is <%= p.leader %>. The faction's size is <%= p.size %>. They are located at <%= p.location %>. Their general agenda is to <%= p.agenda %>.</p>
         <a href="/majorFactions/edit/<%= p.id %>">Edit</a>

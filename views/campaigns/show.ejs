@@ -13,10 +13,10 @@
         <a href="/campaigns/edit/<%= p.id %>">Edit</a><br>
 
         <a href="/locations/<%= p.id %>">View All Locations </a><br>
-        <a href="/lores">View All Lore </a><br>
-        <a href="/majorFactions">View All Major Factions </a><br>
-        <a href="/stories">View All Stories </a><br>
-        <a href="/villains">View All Villains </a><br>
+        <a href="/lores/<%= p.id %>">View All Lore </a><br>
+        <a href="/majorFactions/<%= p.id %>">View All Major Factions </a><br>
+        <a href="/stories/<%= p.id %>">View All Stories </a><br>
+        <a href="/villains/<%= p.id %>">View All Villains </a><br>
 
         <form method="POST" action="/campaigns/<%= p.id %>/?_method=DELETE">
             <input type="submit" value="Delete Campaign">

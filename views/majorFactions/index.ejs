@@ -7,16 +7,18 @@
     <title>All Major Factions</title>
 </head>
 <body>
+    <a href="/campaigns/<%= campaignId %>">View Campaign </a><br>
     <% for( let index = 0; index < majorFactions.length; index++ ) { %>
         <% let a = majorFactions[index] %> 
         <% a = a.toJSON() %>
         <p> <%= a.name %></p>
-        <a href="/majorFactions/<%= a.id %>">View Major Faction </a><br>
+        <a href="/majorFactions/s/<%= a.id %>">View Major Faction </a><br>
         <a href="/majorFactions/edit/<%= a.id %>"> Edit</a>
         <form method="POST" action="/majorFactions/<%= a.id %>/?_method=DELETE">
             <input type="submit" value="Delete Major Faction">
         </form>
         <hr>
     <% } %>
+    <a href="/majorFactions/new/<%= campaignId %>"> New Major Factions</a>
 </body>
 </html>

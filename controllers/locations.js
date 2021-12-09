@@ -4,10 +4,7 @@ const router = express.Router();
 const { location } = require('../models');
 const { campaign } = require('../models');
 
-router.get('/new/:id', function(req, res) {
-    let campaignId = Number(req.params.id);
-    res.render('locations/new', {campaignId: campaignId}); 
-});
+
 
 router.get('/:id', function(req, res) {
     //get all locations
@@ -26,6 +23,10 @@ router.get('/:id', function(req, res) {
     })
 })
 
+router.get('/new/:id', function(req, res) {
+    let campaignId = Number(req.params.id);
+    res.render('locations/new', {campaignId: campaignId}); 
+});
 
 router.post('/:id/', function(req, res) {
     console.log('SUBMITTED FORM', req.body);

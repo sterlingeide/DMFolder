@@ -2,13 +2,17 @@ const express = require('express');
 //const { regexp } = require('sequelize/dist/lib/operators');
 const router = express.Router();
 const { story } = require('../models');
+const { campaign } = require('../models');
 
-router.get('/', function(req, res) {
+router.get('/:id', function(req, res) {
     //get all stories
-    story.findAll()
+    let campaignId = Number(req.params.id);
+    story.findAll({
+        where: {campaignId: campaignId}
+    })
     .then(function(storyList){
         console.log('FOUND ALL Stories', storyList);
-        res.render('stories/index', { stories: storyList});
+        res.render('stories/index', { stories: storyList, campaignId: campaignId});
 
     })
     .catch(function(err){
@@ -17,27 +21,34 @@ router.get('/', function(req, res) {
     })
 })
 
-router.get('/new', function(req, res) {
-    res.render('stories/new'); 
+router.get('/new/:id', function(req, res) {
+    let campaignId = Number(req.params.id);
+    res.render('stories/new', {campaignId: campaignId}); 
 });
 
 
-router.post('/', function(req, res) {
+router.post('/:id', function(req, res) {
     console.log('SUBMITTED FORM', req.body);
-    story.create({
-        name: req.body.name,
-        location: req.body.location,
-        timeFrame: req.body.timeFrame,
-        storyBeats: req.body.storyBeats
+    let campaignId = Number(req.params.id);
+    campaign.findOne({
+        where: {id: campaignId}
     })
-    .then(function(newStory) {
-        console.log('NEW Story', newStory.toJSON());
-        newStory = newStory.toJSON();
-        res.redirect(`/stories/${newStory.id}`);
-    })
-    .catch(function(error) {
-        console.log('ERROR', error);
-        res.render('404', { message: 'Story was not added please try again...' });
+    .then(campaign => {
+        campaign.createStory({
+            name: req.body.name,
+            location: req.body.location,
+            timeFrame: req.body.timeFrame,
+            storyBeats: req.body.storyBeats
+        })
+        .then(function(newStory) {
+            console.log('NEW Story', newStory.toJSON());
+            newStory = newStory.toJSON();
+            res.redirect(`/stories/s/${newStory.id}`);
+        })
+        .catch(function(error) {
+            console.log('ERROR', error);
+            res.render('404', { message: 'Story was not added please try again...' });
+        });
     });
     // res.redirect()
 });
@@ -52,7 +63,7 @@ router.put('/:id', function(req, res) {
     }, {where: {id: Number(req.params.id)}})
     .then(function(response){
         console.log(response);
-        res.redirect(`/stories/${Number(req.params.id)}`);
+        res.redirect(`/stories/s/${Number(req.params.id)}`);
     })
     .catch(function(err){
         console.log('ERROR', err);
@@ -60,12 +71,26 @@ router.put('/:id', function(req, res) {
     })
 })
 
-router.delete('/:id', function(req,res){ 
+router.delete('/:id', async function(req,res){ 
     console.log('ID', req.params.id);
+
+    let storyId = Number(req.params.id);
+    let campaignId = 0;
+
+    try{ 
+        storyFound = await story.findByPk(storyId);
+        console.log("LOCATION FOUND", storyFound);
+        campaignId = await storyFound.toJSON().campaignId;
+        
+    }
+    catch(err) {
+        console.log('ERROR', err);
+    }   
+
     story.destroy({ where: { id: Number(req.params.id)}})
     .then(function(response) {
         console.log('Story DELETED', response);
-        res.redirect('/stories');
+        res.redirect('/stories/' + campaignId);
     })
     .catch(function(err) {
         console.log('ERROR', err);
@@ -94,7 +119,7 @@ router.get('/edit/:id', function(req, res) {
     
 })
 
-router.get('/:id', function(req, res) {
+router.get('/s/:id', function(req, res) {
     console.log(req.params.id);
     story.findByPk(Number(req.params.id))
     .then(function(story){

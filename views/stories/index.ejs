@@ -7,16 +7,18 @@
     <title>All Stories</title>
 </head>
 <body>
+    <a href="/campaigns/<%= campaignId %>">View Campaign </a><br>
     <% for( let index = 0; index < stories.length; index++ ) { %>
         <% let a = stories[index] %> 
         <% a = a.toJSON() %>
         <p> <%= a.name %></p>
-        <a href="/stories/<%= a.id %>">View Story </a><br>
+        <a href="/stories/s/<%= a.id %>">View Story </a><br>
         <a href="/stories/edit/<%= a.id %>"> Edit</a>
         <form method="POST" action="/stories/<%= a.id %>/?_method=DELETE">
             <input type="submit" value="Delete Story">
         </form>
         <hr>
     <% } %>
+    <a href="/stories/new/<%= campaignId %>"> New Story</a>
 </body>
 </html>

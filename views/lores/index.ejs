@@ -7,17 +7,19 @@
     <title>All Lore</title>
 </head>
 <body>
+    <a href="/campaigns/<%= campaignId %>">View Campaign </a><br>
     <% for( let index = 0; index < lores.length; index++ ) { %>
         <% let a = lores[index] %> 
         <% a = a.toJSON() %>
         <p> <%= a.history %></p>
         <p> <%= a.religion %></p>
-        <a href="/lores/<%= a.id %>">View Lore </a><br>
+        <a href="/lores/s/<%= a.id %>">View Lore </a><br>
         <a href="/lores/edit/<%= a.id %>"> Edit</a>
         <form method="POST" action="/lores/<%= a.id %>/?_method=DELETE">
             <input type="submit" value="Delete Lore">
         </form>
         <hr>
     <% } %>
+    <a href="/lores/new/<%= campaignId %>"> New Lore</a>
 </body>
 </html>

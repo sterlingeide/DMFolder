@@ -7,8 +7,8 @@
     <title>A Story</title>
 </head>
 <body>
-        <a href="/stories">View All Stories </a>
         <% let p = story %> 
+        <a href="/stories/<%= p.campaignId %>">View All Stories </a>
         <h1> <%= p.name %></h1>
         <p> Takes place in <%= p.location %>. In the time frame of <%= p.timeFrame %>.</p> 
         <p> Story Beats: <%= p.storyBeats %></p>

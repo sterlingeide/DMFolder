@@ -2,13 +2,17 @@ const express = require('express');
 //const { regexp } = require('sequelize/dist/lib/operators');
 const router = express.Router();
 const { lore } = require('../models');
+const { campaign } = require('../models');
 
-router.get('/', function(req, res) {
+router.get('/:id', function(req, res) {
     //get all lores
-    lore.findAll()
+    let campaignId = Number(req.params.id);
+    lore.findAll({
+        where: {campaignId: campaignId}
+    })
     .then(function(loreList){
         console.log('FOUND ALL LoreS', loreList);
-        res.render('lores/index', { lores: loreList});
+        res.render('lores/index', { lores: loreList, campaignId: campaignId});
 
     })
     .catch(function(err){
@@ -17,25 +21,33 @@ router.get('/', function(req, res) {
     })
 })
 
-router.get('/new', function(req, res) {
-    res.render('lores/new'); 
+
+router.get('/new/:id', function(req, res) {
+    let campaignId = Number(req.params.id);
+    res.render('lores/new', {campaignId: campaignId}); 
 });
 
 
-router.post('/', function(req, res) {
+router.post('/:id/', function(req, res) {
     console.log('SUBMITTED FORM', req.body);
-    lore.create({
-        history: req.body.history,
-        religion: req.body.religion
+    let campaignId = Number(req.params.id);
+    campaign.findOne({
+        where: {id: campaignId}
     })
-    .then(function(newLore) {
-        console.log('NEW Lore', newLore.toJSON());
-        newLore = newLore.toJSON();
-        res.redirect(`/lores/${newLore.id}`);
-    })
-    .catch(function(error) {
-        console.log('ERROR', error);
-        res.render('404', { message: 'Lore was not added please try again...' });
+    .then(campaign => {
+        campaign.createLore({
+            history: req.body.history,
+            religion: req.body.religion
+        })
+        .then(function(newLore) {
+            console.log('NEW Lore', newLore.toJSON());
+            newLore = newLore.toJSON();
+            res.redirect(`/lores/s/${newLore.id}`);
+        })
+        .catch(function(error) {
+            console.log('ERROR', error);
+            res.render('404', { message: 'Lore was not added please try again...' });
+        });
     });
     // res.redirect()
 });
@@ -48,7 +60,7 @@ router.put('/:id', function(req, res) {
     }, {where: {id: Number(req.params.id)}})
     .then(function(response){
         console.log(response);
-        res.redirect(`/lores/${Number(req.params.id)}`);
+        res.redirect(`/lores/s/${Number(req.params.id)}`);
     })
     .catch(function(err){
         console.log('ERROR', err);
@@ -56,12 +68,25 @@ router.put('/:id', function(req, res) {
     })
 })
 
-router.delete('/:id', function(req,res){ 
+router.delete('/:id', async function(req,res){ 
     console.log('ID', req.params.id);
+    let loreId = Number(req.params.id);
+    let campaignId = 0;
+
+    try{ 
+        loreFound = await lore.findByPk(loreId);
+        console.log("LORE FOUND", loreFound);
+        campaignId = await loreFound.toJSON().campaignId;
+        
+    }
+    catch(err) {
+        console.log('ERROR', err);
+    }   
+
     lore.destroy({ where: { id: Number(req.params.id)}})
     .then(function(response) {
         console.log('Lore DELETED', response);
-        res.redirect('/lores');
+        res.redirect('/lores/' + campaignId);
     })
     .catch(function(err) {
         console.log('ERROR', err);
@@ -90,7 +115,7 @@ router.get('/edit/:id', function(req, res) {
     
 })
 
-router.get('/:id', function(req, res) {
+router.get('/s/:id', function(req, res) {
     console.log(req.params.id);
     lore.findByPk(Number(req.params.id))
     .then(function(lore){

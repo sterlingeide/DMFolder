@@ -7,16 +7,18 @@
     <title>All Villains</title>
 </head>
 <body>
+    <a href="/campaigns/<%= campaignId %>">View Campaign </a><br>
     <% for( let index = 0; index < villains.length; index++ ) { %>
         <% let a = villains[index] %> 
         <% a = a.toJSON() %>
         <p> <%= a.name %></p>
-        <a href="/villains/<%= a.id %>">View Villain </a><br>
+        <a href="/villains/s/<%= a.id %>">View Villain </a><br>
         <a href="/villains/edit/<%= a.id %>"> Edit</a>
         <form method="POST" action="/villains/<%= a.id %>/?_method=DELETE">
             <input type="submit" value="Delete Villain">
         </form>
         <hr>
     <% } %>
+    <a href="/villains/new/<%= campaignId %>"> New Villain</a>
 </body>
 </html>

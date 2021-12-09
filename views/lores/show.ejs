@@ -7,9 +7,8 @@
     <title>Lore</title>
 </head>
 <body>
-        <a href="/lores">View All Lore </a>
         <% let p = lore %> 
-        
+        <a href="/lores/<%= p.campaignId %>">View All Lore </a>
         <a href="/lores/edit/<%= p.id %>">Edit</a>
         <p> History: <%= p.history %></p> 
         <p> Religion: <%= p.religion %></p>

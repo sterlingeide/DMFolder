@@ -7,8 +7,8 @@
     <title>A Villain</title>
 </head>
 <body>
-        <a href="/villains">View All Villains </a>
         <% let p = villain %> 
+        <a href="/villains/<%= p.campaignId %>">View All Villains </a>
         <h1> <%= p.name %></h1>
         <p> Their goal is to <%= p.goal %>. Their plan is to <%= p.plan %>. Their Description: <%= p.description %></p>
         <a href="/villains/edit/<%= p.id %>">Edit</a>
