@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bind Character</title>
+</head>
+<body>
+    <p>Campains:</p>
+    <% for( let index = 0; index < campaigns.length; index++ ) { %>
+        <% let a = campaigns[index] %> 
+        <% a = a.toJSON() %>
+        <p> <%= a.name %>, ID: <%= a.id %></p>    
+    <% } %>
+    <hr>
+    <form method="POST" action="/characters/bind/<%= character.id %>/?_method=PUT">
+        <label for="campaignId">Campaign ID:</label>
+        <input type="text" name="campaignId" %> ">
+      
+        <input type="submit">
+    </form>
+</body>
+</html>

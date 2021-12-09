@@ -4,6 +4,7 @@ const router = express.Router();
 const { character } = require('../models');
 const { User } = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
+const { campaign } = require('../models');
 
 router.get('/', isLoggedIn, function(req, res) {
     //get all characters
@@ -67,6 +68,62 @@ router.put('/:id', function(req, res) {
         console.log('ERROR', err);
         res.render('404', { message: 'Update was not succesful, try again.'})
     })
+})
+
+router.get('/bind/:id', isLoggedIn, async function(req, res) {
+    let characterIndex = Number(req.params.id);
+    try{
+        campaignList = await campaign.findAll({where: {userId: req.user.id}})
+        console.log('CAMPAIGN LIST', campaignList);
+    }
+    catch(err){
+        console.log('ERROR', err);
+    }
+
+    character.findByPk(characterIndex)
+    .then(function(character) {
+        if(character) {
+            character = character.toJSON();
+            console.log('CHARACTER BINDING', character);
+            res.render('characters/bind', { character ,campaigns: campaignList});
+        } else {
+            console.log('This character does not exist');
+            // render a 404 page
+            res.render('404', { message: 'Character does not exist' });
+        }
+    })
+    .catch(function(error) {
+        console.log('ERROR', error);
+    });
+    
+})
+
+router.put('/bind/:id', async function(req, res) {
+
+    try{
+        characterTemp =  await character.findByPk(Number(req.params.id));
+        characterTemp = characterTemp.toJSON();
+        console.log('Campaign ID', req.body.campaignId)
+    }
+    catch(err) {
+        console.log('ERROR', err);
+    }
+
+    campaign.findOne({
+        where: {id: Number(req.body.campaignId)}
+    })
+    .then (campaign=> {
+        campaign = campaign.toJSON();
+        console.log("CORRECT CAMPAIGN", campaign);
+        //characterTemp = characterTemp.toJSON();
+        console.log("CORRECT CHARACTER", characterTemp);
+        campaign.addCharacter(characterTemp);
+        res.redirect('/characters');
+    })
+    .catch(function(error) {
+        console.log('ERROR', error);
+        res.render('404', { message: 'Location was not added please try again...' });
+    });
 })
 
 router.delete('/:id', function(req,res){ 

@@ -12,7 +12,8 @@
         <% a = a.toJSON() %>
         <p> <%= a.name %></p>
         <a href="/characters/<%= a.id %>">View Character </a><br>
-        <a href="/characters/edit/<%= a.id %>"> Edit</a>
+        <a href="/characters/edit/<%= a.id %>"> Edit</a><br>
+        <a href="/characters/bind/<%= a.id %>"> Bind</a>
         <form method="POST" action="/characters/<%= a.id %>/?_method=DELETE">
             <input type="submit" value="Delete Character">
         </form>
