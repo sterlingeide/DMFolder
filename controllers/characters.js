@@ -102,7 +102,6 @@ router.put('/bind/:id', async function(req, res) {
 
     try{
         characterTemp =  await character.findByPk(Number(req.params.id));
-        characterTemp = characterTemp.toJSON();
         console.log('Campaign ID', req.body.campaignId)
     }
     catch(err) {
@@ -112,12 +111,11 @@ router.put('/bind/:id', async function(req, res) {
     campaign.findOne({
         where: {id: Number(req.body.campaignId)}
     })
-    .then (campaign=> {
-        campaign = campaign.toJSON();
+    .then (campaign => {
         console.log("CORRECT CAMPAIGN", campaign);
-        //characterTemp = characterTemp.toJSON();
         console.log("CORRECT CHARACTER", characterTemp);
         campaign.addCharacter(characterTemp);
+        campaign.save();
         res.redirect('/characters');
     })
     .catch(function(error) {
