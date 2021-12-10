@@ -5,6 +5,8 @@ const { character } = require('../models');
 const { User } = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const { campaign } = require('../models');
+const { default: axios } = require('axios');
+let API_URL = "https://www.dnd5eapi.co/api/classes/";
 
 router.get('/', isLoggedIn, function(req, res) {
     //get all characters
@@ -23,7 +25,21 @@ router.get('/', isLoggedIn, function(req, res) {
 })
 
 router.get('/new', function(req, res) {
-    res.render('characters/new'); 
+    axios.get(API_URL) 
+    .then(function (response) {
+    if(response.status === 200) {
+        let classList = [];
+        for(let i = 0; i < response.data.count; i++) {
+            classList.push(response.data.results[i].name);
+        }
+        res.render('characters/new', { classList: classList});
+    }else{
+        console.log('NO RESPONSE');
+    }
+    })
+    .catch(function (err) {
+        console.log("API Error", err);
+    });  
 });
 
 
@@ -145,7 +161,23 @@ router.get('/edit/:id', function(req, res) {
         if(character) {
             character = character.toJSON();
             console.log('CHARACTER EDITED', character);
-            res.render('characters/edit', { character });
+
+            axios.get(API_URL) 
+            .then(function (response) {
+            if(response.status === 200) {
+                let classList = [];
+                for(let i = 0; i < response.data.count; i++) {
+                    classList.push(response.data.results[i].name);
+                }
+                res.render('characters/edit', { classList: classList, character});
+            }else{
+                console.log('NO RESPONSE');
+            }
+            })
+            .catch(function (err) {
+                console.log("API Error", err);
+            });  
+            //res.render('characters/edit', { character });
         } else {
             console.log('This character does not exist');
             // render a 404 page

@@ -51,7 +51,11 @@
                             <input type="text" name="name">
                             <br>
                             <label for="class">Class</label>
-                            <input type="text" name="class">
+                            <select name="class">
+                                <% for( let i = 0; i < classList.length; i++ ) { %>
+                                    <option value="<%= classList[i] %>" selected="selected" ><%= classList[i] %></option>
+                                <% } %>
+                            </select>
                             <br>
                             <label for="race">Race</label>
                             <input type="text" name="race">

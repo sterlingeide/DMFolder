@@ -53,6 +53,10 @@
                         <h4><%= p.race %></h4>
                         <h1>Backstory:</h1>
                         <p><%= p.backstory %></p>
+                        <h1><u><a href="/characters/edit/<%= p.id %>">Edit</a></u></h1>
+                        <form method="POST" action="/characters/<%= p.id %>/?_method=DELETE">
+                            <input type="submit" value="Delete Character">
+                        </form>
                     </div>   
                 </div>
             </div>

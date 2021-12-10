@@ -8,6 +8,8 @@ const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const campaign = require('./models/campaign');
 const methodOverride = require('method-override');
+const { default: axios } = require('axios');
+let API_URL = "https://www.dnd5eapi.co/api/classes/";
 
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
@@ -58,6 +60,24 @@ app.use('/majorFactions', require('./controllers/majorFactions'));
 app.use('/stories', require('./controllers/stories'));
 app.use('/villains', require('./controllers/villains'));
 
+
+axios.get(API_URL) 
+.then(function (response) {
+  if(response.status === 200) {
+    console.log('RESPONSE', response.data.results[0].name);
+    let classList = [];
+    for(let i = 0; i < response.data.count; i++) {
+      classList.push(response.data.results[i].name);
+    }
+    console.log('CLASS LIST', classList);
+    console.log('CLASS LIST LENGTH', classList.length);
+  }else{
+    console.log('NO RESPONSE');
+  }
+})
+.catch(function (err) {
+  console.log("API Error", err);
+});
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
