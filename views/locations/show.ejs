@@ -38,22 +38,19 @@
             <div class="tabs is-boxed main-menu" id="nav">
                 <ul>
                     <li data-target="pane-1" id="1" class="is-active">
-                        <a>
-                            <span>Class</span>
-                        </a>
                     </li>
                 </ul>
             </div>
             <div class="tab-content">
                 <div class="tab-pane is-active" id="pane-1">
                     <div class="content">
-                        <h1>Population:</h1>
-                        <h4><%= p.population %></h4>
-                        <h1>Factions:</h1>
-                        <h4><%= p.faction %></h4>
-                        <h1>Description:</h1>
-                        <p><%= p.description %></p>
-                        <h1><u><a href="/locations/edit/<%= p.id %>">Edit</a></u></h1>
+                        <h1 id = "text-color">Population:</h1>
+                        <h4 id = "text-color"><%= p.population %></h4>
+                        <h1 id = "text-color">Factions:</h1>
+                        <h4 id = "text-color"><%= p.faction %></h4>
+                        <h1 id = "text-color">Description:</h1>
+                        <p id = "text-color"><%= p.description %></p>
+                        <h1 id = "text-color"><u><a href="/locations/edit/<%= p.id %>">Edit</a></u></h1>
                         <form method="POST" action="/locations/<%= p.id %>/?_method=DELETE">
                             <input type="submit" value="Delete Location">
                         </form>
@@ -73,8 +70,19 @@
     padding: 60px;
     top: 197px;
     color: #000;
-    background-color: white;
+    background-color: #191b1f;
+    color:white;
     }
+
+    #text-color {
+        color: white;
+    }
+
+    #tab-span {
+    color: #191b1f;
+    background-color: #191b1f;
+    }
+
     .tab-pane {
     display: none;
     }

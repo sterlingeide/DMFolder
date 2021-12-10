@@ -60,61 +60,6 @@ app.use('/majorFactions', require('./controllers/majorFactions'));
 app.use('/stories', require('./controllers/stories'));
 app.use('/villains', require('./controllers/villains'));
 
-
-axios.get(API_URL + 'classes') 
-.then(function (response) {
-  if(response.status === 200) {
-    console.log('RESPONSE', response.data.results[0].name);
-    let classList = [];
-    for(let i = 0; i < response.data.count; i++) {
-      classList.push(response.data.results[i].name);
-    }
-    console.log('CLASS LIST', classList);
-    console.log('CLASS LIST LENGTH', classList.length);
-  }else{
-    console.log('NO RESPONSE');
-  }
-})
-.catch(function (err) {
-  console.log("API Error", err);
-});
-
-axios.get(API_URL + 'races') 
-.then(function (response) {
-  if(response.status === 200) {
-    console.log('RESPONSE', response.data.results[0].name);
-    let raceList = [];
-    for(let i = 0; i < response.data.count; i++) {
-      raceList.push(response.data.results[i].name);
-    }
-    console.log('RACE LIST', raceList);
-    console.log('RACE LIST LENGTH', raceList.length);
-  }else{
-    console.log('NO RESPONSE');
-  }
-})
-.catch(function (err) {
-  console.log("API Error", err);
-});
-
-axios.get(API_URL + 'monsters') 
-.then(function (response) {
-  if(response.status === 200) {
-    console.log('RESPONSE', response.data.results[0].name);
-    let monsterList = [];
-    for(let i = 0; i < response.data.count; i++) {
-      monsterList.push(response.data.results[i].name);
-    }
-    console.log('RACE LIST', monsterList);
-    console.log('RACE LIST LENGTH', monsterList.length);
-  }else{
-    console.log('NO RESPONSE');
-  }
-})
-.catch(function (err) {
-  console.log("API Error", err);
-});
-
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);

@@ -38,24 +38,25 @@
             <div class="tabs is-boxed main-menu" id="nav">
                 <ul>
                     <li data-target="pane-1" id="1" class="is-active">
-                        <a>
-                            <span>Class</span>
-                        </a>
                     </li>
                 </ul>
             </div>
             <div class="tab-content">
                 <div class="tab-pane is-active" id="pane-1">
                     <div class="content">
-                        <h1>Location:</h1>
-                        <h4><%= p.location %></h4>
-                        <h1>Time Frame:</h1>
-                        <h4><%= p.timeFrame %></h4>
-                        <h1>The Story Beats:</h1>
-                        <p><%= p.storyBeats %></p>
-                        <h1>Featured Monster:</h1>
-                        <h4><%= monster.name %></h4>
-                        <h1><u><a href="/stories/edit/<%= p.id %>">Edit</a></u></h1>
+                        <h1 id = "text-color">Location:</h1>
+                        <h4 id = "text-color"><%= p.location %></h4>
+                        <h1 id = "text-color">Time Frame:</h1>
+                        <h4 id = "text-color"><%= p.timeFrame %></h4>
+                        <h1 id = "text-color">The Story Beats:</h1>
+                        <p id = "text-color"><%= p.storyBeats %></p>
+                        <h1 id = "text-color">Featured Monster:</h1>
+                        <% if(monster) { %>
+                            <h4 id = "text-color"><%= monster.name %></h4>
+                        <% }else{ %>
+                            <h4 id = "text-color"></h4>
+                        <% } %>
+                        <h1 id = "text-color"><u><a href="/stories/edit/<%= p.id %>">Edit</a></u></h1>
                         <form method="POST" action="/stories/<%= p.id %>/?_method=DELETE">
                             <input type="submit" value="Delete Story">
                         </form>
@@ -74,9 +75,19 @@
     .tab-content {
     padding: 60px;
     top: 197px;
-    color: #000;
-    background-color: white;
+    background-color: #191b1f;
+    color:white;
     }
+
+    #text-color {
+        color: white;
+    }
+
+    #tab-span {
+    color: #191b1f;
+    background-color: #191b1f;
+    }
+
     .tab-pane {
     display: none;
     }

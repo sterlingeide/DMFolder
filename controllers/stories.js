@@ -187,9 +187,13 @@ router.get('/s/:id', function(req, res) {
                 where: {storyId: story.id}
             })
             .then(monster=> {
-                monster = monster.toJSON()
-                console.log('MONSTERS SHOWN', monster);
-                res.render('stories/show', {story, monster});
+                if(monster){
+                    monster = monster.toJSON()
+                    console.log('MONSTERS SHOWN', monster);
+                    res.render('stories/show', {story, monster});
+                }else{
+                    res.render('stories/show', {story, monster});
+                }
             })
             // res.render('stories/show', {story});
         }else{
