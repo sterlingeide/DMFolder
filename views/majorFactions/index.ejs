@@ -5,20 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Major Factions</title>
+    <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="../ghostStyle.css">
 </head>
 <body>
     <a href="/campaigns/<%= campaignId %>">View Campaign </a><br>
-    <% for( let index = 0; index < majorFactions.length; index++ ) { %>
-        <% let a = majorFactions[index] %> 
-        <% a = a.toJSON() %>
-        <p> <%= a.name %></p>
-        <a href="/majorFactions/s/<%= a.id %>">View Major Faction </a><br>
-        <a href="/majorFactions/edit/<%= a.id %>"> Edit</a>
-        <form method="POST" action="/majorFactions/<%= a.id %>/?_method=DELETE">
-            <input type="submit" value="Delete Major Faction">
-        </form>
-        <hr>
-    <% } %>
-    <a href="/majorFactions/new/<%= campaignId %>"> New Major Factions</a>
+    <section class="hero is-medium">
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <img src="https://cdn.emk.dev/templates/bulma-logo-light.png" width="150" height="40">
+            <h1 class="subtitle">
+              Major Factions
+            </h1>
+          </div>
+        </div>
+      </section>
+      <section class="blog-posts">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-10 is-offset-1">
+              <div class="columns is-multiline">
+                <% for( let index = 0; index < majorFactions.length; index++ ) { %>
+                    <% let a = majorFactions[index] %> 
+                    <% a = a.toJSON() %>
+                    <div class="column post is-6">
+                        <article class="columns is-multiline">
+                            <div class="column is-12 post-img">
+                                <img src="https://cdn.emk.dev/templates/post-img.png" alt="Featured Image">
+                            </div>
+                            <div class="column is-12 featured-content ">
+                                <h1 class="title post-title"><%= a.name %></h1>
+                                <a href="/majorFactions/edit/<%= a.id %>" class="button is-primary">Edit Faction</a>
+                                <br>
+                                <a href="/majorFactions/s/<%= a.id %>" class="button is-primary">View</a>
+                            </div>
+                        </article>
+                    </div>
+                <% } %>
+                <div class="column post is-6">
+                    <article class="columns is-multiline">
+                        <div class="column is-12 post-img">
+                            <img src="https://cdn.emk.dev/templates/post-img.png" alt="Featured Image">
+                        </div>
+                        <div class="column is-12 featured-content ">
+                            <h1 class="title post-title">New Major Faction</h1>
+                            <a href="/majorFactions/new/<%= campaignId %>" class="button is-primary">Create</a>
+                        </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+        </section>
 </body>
 </html>

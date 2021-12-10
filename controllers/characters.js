@@ -177,6 +177,23 @@ router.get('/:id', function(req, res) {
     })
 })
 
+router.get('/b/:id', function(req, res) {
+    //get all characters
+    let campaignId = Number(req.params.id);
+    character.findAll({
+        where: {campaignId: campaignId}
+    })
+    .then(function(characterList){
+        console.log('FOUND ALL CHARACTER', characterList);
+        res.render('characters/boundIndex', { characters: characterList, campaignId: campaignId});
+
+    })
+    .catch(function(err){
+        console.log("ERROR", err);
+        res.json({ message: 'Error occured, Try again'});
+    })
+})
+
 
 module.exports = router;
 

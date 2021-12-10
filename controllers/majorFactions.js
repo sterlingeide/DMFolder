@@ -91,7 +91,7 @@ router.delete('/:id', async function(req,res){
     majorFaction.destroy({ where: { id: Number(req.params.id)}})
     .then(function(response) {
         console.log('MajorFaction DELETED', response);
-        res.redirect('/majorFactions/' + majorFactionId);
+        res.redirect('/majorFactions/' + campaignId);
     })
     .catch(function(err) {
         console.log('ERROR', err);
@@ -115,7 +115,7 @@ router.get('/edit/:id', function(req, res) {
         }
     })
     .catch(function(error) {
-        console.log('ERROR', error);
+        console.log('This ERROR', error);
     });
     
 })

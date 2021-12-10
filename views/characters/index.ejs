@@ -5,20 +5,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Characters</title>
+    <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="../ghostStyle.css">
 </head>
 <body>
-    <% for( let index = 0; index < characters.length; index++ ) { %>
-        <% let a = characters[index] %> 
-        <% a = a.toJSON() %>
-        <p> <%= a.name %></p>
-        <a href="/characters/<%= a.id %>">View Character </a><br>
-        <a href="/characters/edit/<%= a.id %>"> Edit</a><br>
-        <a href="/characters/bind/<%= a.id %>"> Bind</a>
-        <form method="POST" action="/characters/<%= a.id %>/?_method=DELETE">
-            <input type="submit" value="Delete Character">
-        </form>
-        <hr>
-    <% } %>
-    <a href="/characters/new"> New Character</a>
-</body>
+
+<section class="hero is-medium">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <img src="https://cdn.emk.dev/templates/bulma-logo-light.png" width="150" height="40">
+        <h1 class="subtitle">
+          Characters
+        </h1>
+      </div>
+    </div>
+  </section>
+  <section class="blog-posts">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-10 is-offset-1">
+          <div class="columns is-multiline">
+            <% for( let index = 0; index < characters.length; index++ ) { %>
+                <% let a = characters[index] %> 
+                <% a = a.toJSON() %>
+                <div class="column post is-6">
+                    <article class="columns is-multiline">
+                        <div class="column is-12 post-img">
+                            <img src="https://cdn.emk.dev/templates/post-img.png" alt="Featured Image">
+                        </div>
+                        <div class="column is-12 featured-content ">
+                            <h1 class="title post-title"><%= a.name %></h1>
+                            <a href="/characters/edit/<%= a.id %>" class="button is-primary">Edit Character</a>
+                            <br>
+                            <a href="/characters/bind/<%= a.id %>" class="button is-primary">Put in Campaign</a>
+                            <br>
+                            <a href="/characters/<%= a.id %>" class="button is-primary">View</a>
+                        </div>
+                    </article>
+                </div>
+            <% } %>
+            <div class="column post is-6">
+              <article class="columns is-multiline">
+                  <div class="column is-12 post-img">
+                      <img src="https://cdn.emk.dev/templates/post-img.png" alt="Featured Image">
+                  </div>
+                  <div class="column is-12 featured-content ">
+                      <h1 class="title post-title">New Character</h1>
+                      <a href="/characters/new" class="button is-primary">Create</a>
+                  </div>
+              </article>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  </body>
+
 </html>

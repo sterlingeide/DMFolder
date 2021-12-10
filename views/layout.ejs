@@ -5,19 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Authentication</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
     <%- include('partials/alerts') %>
 
     <% if (!currentUser) { %>
-      <li><a href="/auth/signup">Signup</a></li>
-      <li><a href="/auth/login">Login</a></li>
-      <li><a href="/">Home</a></li>
+      <section class="hero is-medium">
+        <div class="hero-head">
+          <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+    
+              <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                  <a class="navbar-item is-active" href="/auth/signup">Signup</a>
+                  <a class="navbar-item" href="/auth/login">Login</a>
+                  <a class="navbar-item" href="/">Home</a> 
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </section>
   <% } else { %>
-      <li><a href="/auth/logout">Logout</a></li>
-      <li><a href="/profile">Profile</a></li>
-      <li><a href="/">Home</a></li>
+      <section class="hero is-medium">
+        <div class="hero-head">
+          <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+    
+              <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                  <a class="navbar-item is-active" href="/auth/logout">Logout</a>
+                  <a class="navbar-item" href="/profile">Profile</a>
+                  <a class="navbar-item" href="/">Home</a> 
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </section>
   <% } %>
   
     <%- body %> 
