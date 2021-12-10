@@ -1,7 +1,109 @@
-<h2>Profile Page</h2>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bulma - Tabs</title>
+        <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
+        <!-- Bulma Version 0.9.0-->
+        <link rel='stylesheet prefetch' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+        <link rel="stylesheet" href="../tabs.css">
+        <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar is-info">
+            <div class="navbar-brand">
+                <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+        <section class="hero is-info">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        <%= name %>
+                    </h1>
+                </div>
+            </div>
+            <div class="tabs is-boxed main-menu" id="nav">
+                <ul>
+                    <li data-target="pane-1" id="1" class="is-active">
+                        <a>
+                            <span>Class</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane is-active" id="pane-1">
+                    <div class="content">
+                        <h1>Profile:</h1>
+                        <h4>ID:</h4>
+                        <p><%= id %></p>
+                        <h4>Email:</h4>
+                        <p><%= email %></p>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
 
-<h3>Welcome to your PROFILE</h3>
+<style> 
+    .tabs {
+    margin-bottom: -1px !important;
+    position: relative;
+    }
+    .tab-content {
+    padding: 60px;
+    top: 197px;
+    color: #000;
+    background-color: white;
+    }
+    .tab-pane {
+    display: none;
+    }
+    .tab-pane.is-active {
+    display: block;
+    width: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    }
+    .is-active {
+    display: initial;
+    }
+    
+    .cent{
+    display: block;
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #ccc}
+    
+    .video
+    {display: block;
+    margin: 0 auto;}
+    
+    /* CSS from http://embedresponsively.com */
+    .embed-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+    }
+    .embed-container iframe,
+    .embed-container object,
+    .embed-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 
-<p>Id: <%= id %></p>
-<p>Name: <%= name %></p>
-<p>Email: <%= email %></p>
+</style>
+
+</html>
