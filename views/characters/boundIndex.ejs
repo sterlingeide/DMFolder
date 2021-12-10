@@ -1,17 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Characters</title>
-<body>
-    <a href="/campaigns/<%= campaignId %>">View Campaign </a><br>
-    <% for( let index = 0; index < characters.length; index++ ) { %>
-        <% let a = characters[index] %> 
-        <% a = a.toJSON() %>
-        <p> <%= a.name %></p>
-        <hr>
-    <% } %>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bulma - Tabs</title>
+        <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
+        <!-- Bulma Version 0.9.0-->
+        <link rel='stylesheet prefetch' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+        <link rel="stylesheet" href="../tabs.css">
+        <script src="https://kit.fontawesome.com/7dc3015a44.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar is-info">
+            <div class="navbar-brand">
+                <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div id="navbarExampleTransparentExample" class="navbar-menu">
+                <div class="navbar-start is-link">
+                    <a class="navbar-item" href="/campaigns/<%= campaignId %>">
+                        View Campaign
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <section class="hero is-info">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Characters
+                    </h1>
+                </div>
+            </div>
+            <div class="tabs is-boxed main-menu" id="nav">
+                <ul>
+                    <li data-target="pane-1" id="1" class="is-active">
+                        <a>
+                            <span>Class</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane is-active" id="pane-1">
+                    <div class="content">
+                        <% for( let index = 0; index < characters.length; index++ ) { %>
+                            <% let a = characters[index] %> 
+                            <% a = a.toJSON() %>
+                            <h1> <%= a.name %></h1>
+                            <h4> Class: <%= a.class %></h4>
+                            <h4> Race: <%= a.race %></h4>
+                        <% } %>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <script src="../bulma.js"></script> -->
+    <script src="../tabs.js"></script>
 </body>
+
+<style> 
+    .tabs {
+    margin-bottom: -1px !important;
+    position: relative;
+    }
+    .tab-content {
+    padding: 60px;
+    top: 197px;
+    color: #000;
+    background-color: white;
+    }
+    .tab-pane {
+    display: none;
+    }
+    .tab-pane.is-active {
+    display: block;
+    width: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    }
+    .is-active {
+    display: initial;
+    }
+    
+    .cent{
+    display: block;
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #ccc}
+    
+    .video
+    {display: block;
+    margin: 0 auto;}
+    
+    /* CSS from http://embedresponsively.com */
+    .embed-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+    }
+    .embed-container iframe,
+    .embed-container object,
+    .embed-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+</style>
+
 </html>
