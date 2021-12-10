@@ -52,6 +52,14 @@
                             <label for="storyBeats">Story Beats</label>
                             <input type="text" name="storyBeats">
                             <br>
+                            <label for="monsterName">Feature Monster</label>
+                            <select name="monsterName">
+                                <option value="" selected="selected" >--</option>
+                                <% for( let i = 0; i < monsterList.length; i++ ) { %>
+                                    <option value="<%= monsterList[i] %>" ><%= monsterList[i] %></option>
+                                <% } %>
+                            </select>
+                            <br>
                             <input type="submit">
                           </form>
                     </div>   

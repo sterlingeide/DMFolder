@@ -53,6 +53,8 @@
                         <h4><%= p.timeFrame %></h4>
                         <h1>The Story Beats:</h1>
                         <p><%= p.storyBeats %></p>
+                        <h1>Featured Monster:</h1>
+                        <h4><%= monster.name %></h4>
                         <h1><u><a href="/stories/edit/<%= p.id %>">Edit</a></u></h1>
                         <form method="POST" action="/stories/<%= p.id %>/?_method=DELETE">
                             <input type="submit" value="Delete Story">

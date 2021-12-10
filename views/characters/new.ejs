@@ -52,15 +52,17 @@
                             <br>
                             <label for="class">Class</label>
                             <select name="class">
+                                <option value="" selected="selected" >--</option>
                                 <% for( let i = 0; i < classList.length; i++ ) { %>
-                                    <option value="<%= classList[i] %>" selected="selected" ><%= classList[i] %></option>
+                                    <option value="<%= classList[i] %>" ><%= classList[i] %></option>
                                 <% } %>
                             </select>
                             <br>
                             <label for="race">Race</label>
                             <select name="race">
+                                <option value="" selected="selected" >--</option>
                                 <% for( let i = 0; i < raceList.length; i++ ) { %>
-                                    <option value="<%= raceList[i] %>" selected="selected" ><%= raceList[i] %></option>
+                                    <option value="<%= raceList[i] %>" ><%= raceList[i] %></option>
                                 <% } %>
                             </select>
                             <br>
