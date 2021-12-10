@@ -58,7 +58,11 @@
                             </select>
                             <br>
                             <label for="race">Race</label>
-                            <input type="text" name="race" value="<%= character.race %> ">
+                            <select name="race">
+                                <% for( let i = 0; i < raceList.length; i++ ) { %>
+                                    <option value="<%= raceList[i] %>" selected="selected" ><%= raceList[i] %></option>
+                                <% } %>
+                            </select>
                             <br>
                             <label for="backstory">Backstory</label>
                             <input type="text" name="backstory" value="<%= character.backstory %> ">

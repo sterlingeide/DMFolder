@@ -6,7 +6,7 @@ const { User } = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const { campaign } = require('../models');
 const { default: axios } = require('axios');
-let API_URL = "https://www.dnd5eapi.co/api/classes/";
+let API_URL = "https://www.dnd5eapi.co/api/";
 
 router.get('/', isLoggedIn, function(req, res) {
     //get all characters
@@ -25,14 +25,28 @@ router.get('/', isLoggedIn, function(req, res) {
 })
 
 router.get('/new', function(req, res) {
-    axios.get(API_URL) 
+    axios.get(API_URL + 'classes') 
     .then(function (response) {
     if(response.status === 200) {
         let classList = [];
         for(let i = 0; i < response.data.count; i++) {
             classList.push(response.data.results[i].name);
         }
-        res.render('characters/new', { classList: classList});
+        axios.get(API_URL + 'races') 
+        .then(function (response) {
+        if(response.status === 200) {
+            let raceList = [];
+            for(let i = 0; i < response.data.count; i++) {
+                raceList.push(response.data.results[i].name);
+            }
+            res.render('characters/new', { classList: classList, raceList: raceList});
+        }else{
+            console.log('NO RESPONSE');
+        }
+        })
+        .catch(function (err) {
+            console.log("API Error", err);
+        });  
     }else{
         console.log('NO RESPONSE');
     }
@@ -162,14 +176,28 @@ router.get('/edit/:id', function(req, res) {
             character = character.toJSON();
             console.log('CHARACTER EDITED', character);
 
-            axios.get(API_URL) 
+            axios.get(API_URL + 'classes') 
             .then(function (response) {
             if(response.status === 200) {
                 let classList = [];
                 for(let i = 0; i < response.data.count; i++) {
                     classList.push(response.data.results[i].name);
                 }
-                res.render('characters/edit', { classList: classList, character});
+                axios.get(API_URL + 'races') 
+                .then(function (response) {
+                if(response.status === 200) {
+                    let raceList = [];
+                    for(let i = 0; i < response.data.count; i++) {
+                        raceList.push(response.data.results[i].name);
+                    }
+                    res.render('characters/edit', { classList: classList, raceList: raceList, character});
+                }else{
+                    console.log('NO RESPONSE');
+                }
+                })
+                .catch(function (err) {
+                    console.log("API Error", err);
+                });
             }else{
                 console.log('NO RESPONSE');
             }

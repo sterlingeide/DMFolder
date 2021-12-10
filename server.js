@@ -9,7 +9,7 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 const campaign = require('./models/campaign');
 const methodOverride = require('method-override');
 const { default: axios } = require('axios');
-let API_URL = "https://www.dnd5eapi.co/api/classes/";
+let API_URL = "https://www.dnd5eapi.co/api/";
 
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
@@ -61,7 +61,7 @@ app.use('/stories', require('./controllers/stories'));
 app.use('/villains', require('./controllers/villains'));
 
 
-axios.get(API_URL) 
+axios.get(API_URL + 'classes') 
 .then(function (response) {
   if(response.status === 200) {
     console.log('RESPONSE', response.data.results[0].name);
@@ -71,6 +71,42 @@ axios.get(API_URL)
     }
     console.log('CLASS LIST', classList);
     console.log('CLASS LIST LENGTH', classList.length);
+  }else{
+    console.log('NO RESPONSE');
+  }
+})
+.catch(function (err) {
+  console.log("API Error", err);
+});
+
+axios.get(API_URL + 'races') 
+.then(function (response) {
+  if(response.status === 200) {
+    console.log('RESPONSE', response.data.results[0].name);
+    let raceList = [];
+    for(let i = 0; i < response.data.count; i++) {
+      raceList.push(response.data.results[i].name);
+    }
+    console.log('RACE LIST', raceList);
+    console.log('RACE LIST LENGTH', raceList.length);
+  }else{
+    console.log('NO RESPONSE');
+  }
+})
+.catch(function (err) {
+  console.log("API Error", err);
+});
+
+axios.get(API_URL + 'monsters') 
+.then(function (response) {
+  if(response.status === 200) {
+    console.log('RESPONSE', response.data.results[0].name);
+    let monsterList = [];
+    for(let i = 0; i < response.data.count; i++) {
+      monsterList.push(response.data.results[i].name);
+    }
+    console.log('RACE LIST', monsterList);
+    console.log('RACE LIST LENGTH', monsterList.length);
   }else{
     console.log('NO RESPONSE');
   }
