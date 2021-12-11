@@ -37,9 +37,6 @@
             <div class="tabs is-boxed main-menu" id="nav">
                 <ul>
                     <li data-target="pane-1" id="1" class="is-active">
-                        <a>
-                            <span>Class</span>
-                        </a>
                     </li>
                 </ul>
             </div>
@@ -50,6 +47,7 @@
                             <label for="name">Name</label>
                             <input type="text" name="name" value="<%= character.name %> ">
                             <br>
+                            <br>
                             <label for="class">Class</label>
                             <select name="class">
                                 <option value="" selected="selected" >--</option>
@@ -57,6 +55,7 @@
                                     <option value="<%= classList[i] %>" ><%= classList[i] %></option>
                                 <% } %>
                             </select>
+                            <br>
                             <br>
                             <label for="race">Race</label>
                             <select name="race">
@@ -66,8 +65,12 @@
                                 <% } %>
                             </select>
                             <br>
+                            <br>
                             <label for="backstory">Backstory</label>
-                            <input type="text" name="backstory" value="<%= character.backstory %> ">
+                            <br>
+                            <textarea wrap="soft" style = "height: 100px; width: 100%" name="backstory"><%= character.backstory %></textarea>
+                            
+                            <br>
                             <br>
                             <input type="submit">
                         </form>
@@ -79,6 +82,10 @@
 </body>
 
 <style> 
+    html {
+        background-color:#191b1f;
+    }
+
     .tabs {
     margin-bottom: -1px !important;
     position: relative;
@@ -87,8 +94,19 @@
     padding: 60px;
     top: 197px;
     color: #000;
-    background-color: white;
+    background-color: #191b1f;
+    color:white;
     }
+
+    #text-color {
+        color: white;
+    }
+
+    #tab-span {
+    color: #191b1f;
+    background-color: #191b1f;
+    }
+
     .tab-pane {
     display: none;
     }

@@ -84,15 +84,39 @@ router.post('/', isLoggedIn, function(req, res) {
 
 router.put('/:id', function(req, res) {
     console.log('EDIT FORM DATA THAT WAS SUBMITTED', req.body);
+    let idNumber = Number(req.params.id);
     character.update({
         name: req.body.name,
-        class: req.body.class,
-        race: req.body.race,
         backstory: req.body.backstory,
-    }, {where: {id: Number(req.params.id)}})
+    }, {where: {id: idNumber}})
     .then(function(response){
         console.log(response);
-        res.redirect(`/characters/${Number(req.params.id)}`);
+        if(req.body.class){
+            character.update({
+                class: req.body.class
+            }, {where: {id: idNumber}})
+            .then(function(response){
+                if(req.body.race){
+                    character.update({
+                        race: req.body.race
+                    }, {where: {id: idNumber}})
+                    .then(function(response){
+                        res.redirect(`/characters/` + idNumber);
+                    })
+                }else{
+                    res.redirect(`/characters/` + idNumber);
+                }
+            })
+        }else if(req.body.race){
+            character.update({
+                race: req.body.race
+            }, {where: {id: idNumber}})
+            .then(function(response){
+                res.redirect(`/characters/` + idNumber);
+            })
+        }else{
+            res.redirect(`/characters/${idNumber}`);
+        }
     })
     .catch(function(err){
         console.log('ERROR', err);
