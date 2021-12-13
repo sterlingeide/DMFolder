@@ -31,7 +31,7 @@
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        Lore
+                        <%= p.history %>
                     </h1>
                 </div>
             </div>
@@ -44,9 +44,7 @@
             <div class="tab-content">
                 <div class="tab-pane is-active" id="pane-1">
                     <div class="content">
-                        <h1 id = "text-color">History:</h1>
-                        <p id = "text-color"><%= p.history %></p>
-                        <h1 id = "text-color">Religion:</h1>
+                        <h1 id = "text-color">Lore</h1>
                         <p id = "text-color"><%= p.religion %></p>
                         <h1 id = "text-color"><u><a href="/lores/edit/<%= p.id %>">Edit</a></u></h1>
                         <form method="POST" action="/lores/<%= p.id %>/?_method=DELETE">

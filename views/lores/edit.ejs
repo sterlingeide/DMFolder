@@ -23,7 +23,7 @@
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        Lore
+                        <%= lore.history %>
                     </h1>
                 </div>
             </div>
@@ -37,12 +37,10 @@
                 <div class="tab-pane is-active" id="pane-1">
                     <div class="content">
                         <form method="POST" action="/lores/<%= lore.id %>/?_method=PUT">
-                            <label for="history">History</label>
+                            <label for="history">Name</label>
+                            <input type="text" name="history" value="<%= lore.history %> ">
                             <br>
-                            <textarea wrap="soft" style = "height: 100px; width: 100%" name="history"><%= lore.history %></textarea>
-                            
-                            <br>
-                            <label for="religion">Religion</label>
+                            <label for="religion">Lore</label>
                             <br>
                             <textarea wrap="soft" style = "height: 100px; width: 100%" name="religion"><%= lore.religion %></textarea>
                             
