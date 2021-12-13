@@ -51,7 +51,6 @@ router.post('/:id/', function(req, res) {
             res.render('404', { message: 'Location was not added please try again...' });
         });
     });
-    // res.redirect()
 });
 
 router.put('/:id', function(req, res) {
