@@ -30,9 +30,6 @@
             <div class="tabs is-boxed main-menu" id="nav">
                 <ul>
                     <li data-target="pane-1" id="1" class="is-active">
-                        <a>
-                            <span>Class</span>
-                        </a>
                     </li>
                 </ul>
             </div>
@@ -41,16 +38,21 @@
                     <div class="content">
                         <form method="POST" action="/villains/<%= campaignId %>">
                             <label for="name">Name</label>
-                            <input type="text" name="name">
+                            <br>
+                            <input type="text" name="name" >
                             <br>
                             <label for="goal">Goal</label>
-                            <input type="text" name="goal">
+                            <input type="text" name="goal" style = "width: 100%" >
                             <br>
                             <label for="plan">Plan</label>
-                            <input type="text" name="plan">
+                            <br>
+                            <textarea wrap="soft" style = "height: 100px; width: 100%" name="plan"></textarea>
+                    
                             <br>
                             <label for="description">Description</label>
-                            <input type="text" name="description">
+                            <br>
+                            <textarea wrap="soft" style = "height: 100px; width: 100%" name="description"></textarea>
+                            
                             <br>
                             <input type="submit">
                           </form>
@@ -69,9 +71,19 @@
     .tab-content {
     padding: 60px;
     top: 197px;
-    color: #000;
-    background-color: white;
+    background-color: #191b1f;
+    color:white;
     }
+
+    #text-color {
+        color: white;
+    }
+
+    #tab-span {
+    color: #191b1f;
+    background-color: #191b1f;
+    }
+
     .tab-pane {
     display: none;
     }

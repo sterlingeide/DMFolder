@@ -30,24 +30,21 @@
             <div class="tabs is-boxed main-menu" id="nav">
                 <ul>
                     <li data-target="pane-1" id="1" class="is-active">
-                        <a>
-                            <span>Class</span>
-                        </a>
                     </li>
                 </ul>
             </div>
             <div class="tab-content">
                 <div class="tab-pane is-active" id="pane-1">
                     <div class="content">
-                        <h1>Available Campaigns:</h1>
+                        <h1 id = "text-color">Available Campaigns:</h1>
                         <% for( let index = 0; index < campaigns.length; index++ ) { %>
                             <% let a = campaigns[index] %> 
                             <% a = a.toJSON() %>
-                            <h3> <%= a.name %>: </h3>
-                            <p>ID = <%= a.id %></p>  
+                            <h3 id = "text-color"> <%= a.name %>: </h3>
+                            <p id = "text-color">ID = <%= a.id %></p>  
                         <% } %>
                         <hr>
-                        <h1>Choose Campaign:</h1>
+                        <h1 id = "text-color">Choose Campaign:</h1>
                         <form method="POST" action="/characters/bind/<%= character.id %>/?_method=PUT">
                             <label for="campaignId">Enter Campain ID</label>
                             <input type="text" name="campaignId" %> ">
@@ -70,8 +67,19 @@
     padding: 60px;
     top: 197px;
     color: #000;
-    background-color: white;
+    background-color: #191b1f;
+    color:white;
     }
+
+    #text-color {
+        color: white;
+    }
+
+    #tab-span {
+    color: #191b1f;
+    background-color: #191b1f;
+    }
+
     .tab-pane {
     display: none;
     }

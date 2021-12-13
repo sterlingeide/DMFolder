@@ -1,35 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Major Faction</title>
-</head>
-<body>
-    <form method="POST" action="/majorFactions/<%= campaignId %>">
-        <label for="name">Name</label>
-        <input type="text" name="name">
-
-        <label for="leader">Leader</label>
-        <input type="text" name="leader">
-
-        <label for="size">Size</label>
-        <input type="text" name="size">
-
-        <label for="location">Location</label>
-        <input type="text" name="location">
-
-        <label for="agenda">Agenda</label>
-        <input type="text" name="agenda">
-      
-        <input type="submit">
-      </form>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Bulma - Tabs</title>
@@ -60,9 +30,6 @@
             <div class="tabs is-boxed main-menu" id="nav">
                 <ul>
                     <li data-target="pane-1" id="1" class="is-active">
-                        <a>
-                            <span>Class</span>
-                        </a>
                     </li>
                 </ul>
             </div>
@@ -80,10 +47,12 @@
                             <input type="text" name="size">
                             <br>
                             <label for="location">Location</label>
-                            <input type="text" name="location">
+                            <input type="text" name="location" style = "width: 60%">
                             <br>
                             <label for="agenda">Agenda</label>
-                            <input type="text" name="agenda">
+                            <br>
+                            <textarea wrap="soft" style = "height: 100px; width: 100%" name="backstory"></textarea>
+                            
                             <br>
                             <input type="submit">
                           </form>
@@ -102,9 +71,19 @@
     .tab-content {
     padding: 60px;
     top: 197px;
-    color: #000;
-    background-color: white;
+    background-color: #191b1f;
+    color:white;
     }
+
+    #text-color {
+        color: white;
+    }
+
+    #tab-span {
+    color: #191b1f;
+    background-color: #191b1f;
+    }
+
     .tab-pane {
     display: none;
     }
