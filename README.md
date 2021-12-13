@@ -2,6 +2,8 @@
 
 A website that stores all of your D&D campaign notes in an orderly and organized fashion.
 
+![Front Page](https://i.imgur.com/t5VYTem.png)
+
 ## User Stories
 As a user I want to:
 * Create Characters
@@ -14,12 +16,12 @@ As a user I want to:
 
 ## ERD
 This ERD details the information stored in the database and the associations between them.
-- ![ERD](https://i.imgur.com/uiQjYQm.png)
+![ERD](https://i.imgur.com/uiQjYQm.png)
 
 
 ## Wire Frame
 This is the original plan for how the site would be connected and a rough layout of its look.
-- ![Wire Frame](https://i.imgur.com/H3Lhgyb.png)
+![Wire Frame](https://i.imgur.com/H3Lhgyb.png)
 
 ## Routing
 
