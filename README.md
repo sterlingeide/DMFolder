@@ -14,10 +14,12 @@ As a user I want to:
 
 ## ERD
 This ERD details the information stored in the database and the associations between them.
+- ![ERD](https://i.imgur.com/uiQjYQm.png)
 
 
 ## Wire Frame
 This is the original plan for how the site would be connected and a rough layout of its look.
+- ![Wire Frame](https://i.imgur.com/H3Lhgyb.png)
 
 ## Routing
 
